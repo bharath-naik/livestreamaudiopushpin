@@ -1,0 +1,46 @@
+version: "3.3"
+services:
+
+  #This is a normal http server with grip support and acts as banckend server for pushpin API
+  backend:
+  # Path to dockerfile.
+    # '.' represents the current directory in which docker-compose.yml is present.
+    build:
+      context: ./PushpinBackend
+      dockerfile: Dockerfile
+      #mount volume
+    volumes:
+        - ./PushpinBackend:/usr/src/app
+    networks:
+    - envoymesh
+    restart: always
+    ports:
+    - "8000"
+
+  # this is a web socket server that sends the binary array buffer/Blob to pushpin API
+  speakersocket:
+      build:
+        context: ./SpeakerSocket
+        dockerfile: Dockerfile
+      volumes:
+        - ./SpeakerSocket:/usr/src/app
+      networks: 
+      - envoymesh
+      restart: always
+      ports:
+      - "8081"
+
+      #load balancer , proxy and reverse -proxy
+  # front-envoy:
+  #   image: envoyproxy/envoy-alpine-dev:latest
+  #   networks:
+  #     - envoymesh
+  #   ports:
+  #     - "8202:8202"
+  #     - "8282:8282"
+  #   depends_on: 
+  #     - speakersocket
+  #     - backend
+  
+networks:
+  envoymesh: {}
