@@ -3,7 +3,7 @@ record a live microphone stream from browser and let listeners listen to the liv
 
 Project structure:
 
-*micUploadStream.html* : webpage where live mic stream is recorded and then sent to a websocket server
+*edgepushpinserver* : receives all the buffer data from masterpushpin server and broadcasts to every connected P Server to edge P Server
 
 *websocketServer.js* : receive live mic audio in blobs and push to pushpin
 
