@@ -12,7 +12,7 @@ http.get(masterPushpinAddress, function(res){
         channelId = bufferToArray.subarray((bufferToArray.length - 1) - channelIdLength, bufferToArray.length - 1);
         audioPackets = Buffer.from(audioPackets);
         console.log(audioPackets);
-        console.log('channelID: ', channelId);
+        console.log('channelID: ', Buffer.from(channelId).toString());
     });
     res.on('end', function(chunk){
         console.log('ho gaya');
